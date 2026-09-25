@@ -1,0 +1,534 @@
+<meta charset="utf-8">
+<title>Sakhi on WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta+Vaani:wght@400;500;600;700&family=Rasa:wght@500;600;700&family=Shrikhand&display=swap">
+<style>
+  :root {
+    --ground: #FFFDF9;
+    --surface: #FFFFFF;
+    --tint: #EFF5F4;
+    --ink: #26170F;
+    --muted: #5B4940;
+    --line: #E3D8CD;
+    --peacock: #0E4D5A;
+    --on-peacock: #FFF8EC;
+    --logo: #F0CD7E;
+    --kumkum: #A3182F;
+    --wa: #146C3C;
+    --wa-hover: #0F5A31;
+    --chip: #F4ECE3;
+    --hi: #0E4D5A;
+    --focus: #1B6FD8;
+    --shadow: 0 1px 2px rgba(60, 30, 10, .06), 0 6px 20px rgba(60, 30, 10, .07);
+    --band: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='18'%3E%3Crect width='26' height='18' fill='%239E1B32'/%3E%3Crect width='26' height='2.5' fill='%23D2A447'/%3E%3Crect y='15.5' width='26' height='2.5' fill='%23D2A447'/%3E%3Cpath d='M5 15.5 L13 5 L21 15.5Z' fill='%23D2A447'/%3E%3Ccircle cx='13' cy='11.6' r='1.7' fill='%239E1B32'/%3E%3C/svg%3E");
+    --serif: "Rasa", "Noto Serif Gujarati", Georgia, "Times New Roman", serif;
+    --sans: "Mukta Vaani", "Noto Sans Gujarati", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #171112; --surface: #221A1B; --tint: #172326; --ink: #F6EEE7; --muted: #CDBCB1;
+      --line: #3B2F2D; --peacock: #0B3C46; --on-peacock: #FFF3DF; --kumkum: #E0566D;
+      --wa: #1A8249; --wa-hover: #1F9454; --chip: #2C2223; --hi: #7FC4CF; --focus: #7FB4FF;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #171112; --surface: #221A1B; --tint: #172326; --ink: #F6EEE7; --muted: #CDBCB1;
+    --line: #3B2F2D; --peacock: #0B3C46; --on-peacock: #FFF3DF; --kumkum: #E0566D;
+    --wa: #1A8249; --wa-hover: #1F9454; --chip: #2C2223; --hi: #7FC4CF; --focus: #7FB4FF;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.3);
+  }
+
+  html { font-size: 112.5%; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); line-height: 1.6; }
+  * { box-sizing: border-box; }
+  canvas { display: block; max-width: 100%; }
+  h1, h2, h3 { font-family: var(--serif); line-height: 1.15; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .wrap { max-width: 1180px; margin-inline: auto; padding-inline: 20px; }
+  .gu { color: var(--muted); font-weight: 500; }
+
+  header.top { background: var(--peacock); color: var(--on-peacock); }
+  .top .wrap { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; padding-block: 12px; }
+  .brand { font-family: "Shrikhand", var(--serif); font-size: 1.6rem; color: var(--logo); }
+  .top .what { opacity: .9; }
+  .band { height: 18px; background: var(--band) repeat-x left center / 26px 18px; }
+
+  .intro { padding-block: 36px 8px; }
+  .intro h1 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 700; }
+  .intro .gu { font-size: 1.15rem; margin-top: 6px; }
+  .intro .lede { font-size: 1.1rem; max-width: 40em; margin-top: 14px; }
+
+  /* Walkthrough */
+  .walk { padding-block: 28px 48px; }
+  .walk .wrap { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .step {
+    width: 100%; text-align: left; font: inherit; color: var(--ink); cursor: pointer;
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: start;
+    background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px;
+  }
+  .step:hover { border-color: var(--muted); }
+  .step[aria-current="step"] { border-color: var(--hi); box-shadow: 0 0 0 2px var(--hi); }
+  .step .n {
+    grid-row: span 3; width: 2.3rem; height: 2.3rem; border-radius: 50%; display: grid; place-items: center;
+    background: var(--chip); color: var(--ink); font: 700 1.15rem var(--serif);
+  }
+  .step[aria-current="step"] .n { background: var(--kumkum); color: #fff; }
+  .step .t { font-family: var(--serif); font-weight: 700; font-size: 1.22rem; line-height: 1.25; }
+  .step .who { font-size: .98rem; color: var(--muted); display: none; }
+  .step .who b { color: var(--ink); font-weight: 600; }
+  .step[aria-current="step"] .who { display: block; }
+
+  .stage { position: sticky; top: 16px; display: grid; justify-items: center; gap: 14px; }
+  .stage-label { font-size: .9rem; color: var(--muted); text-align: center; }
+  .nav { display: flex; gap: 12px; width: 100%; max-width: 340px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex: 1;
+    min-height: 3rem; padding: 10px 18px; border-radius: 10px; cursor: pointer;
+    font: 600 1.05rem/1.2 var(--sans); border: 2px solid transparent;
+  }
+  .btn-go { background: var(--wa); color: #fff; }
+  .btn-go:hover { background: var(--wa-hover); }
+  .btn-line { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-line:hover { border-color: var(--ink); }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .counter { font-weight: 600; color: var(--muted); }
+
+  /* Phone (fixed look, same in both themes) */
+  .phone {
+    width: 340px; max-width: 100%; aspect-ratio: 340 / 690;
+    background: #151515; border-radius: 44px; padding: 12px; box-shadow: 0 24px 50px rgba(20,10,5,.35);
+  }
+  .screen {
+    height: 100%; border-radius: 34px; overflow: hidden; display: flex; flex-direction: column;
+    background: #EFE7DC; color: #1C1B1A; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14.5px; line-height: 1.35;
+  }
+  .ph-status { height: 26px; background: #1E5A56; color: #fff; font-size: 11.5px; display: flex; justify-content: space-between; padding: 6px 22px 0; }
+  .ph-head { background: #1E5A56; color: #fff; display: flex; align-items: center; gap: 10px; padding: 8px 12px 10px; }
+  .ph-head .back { font-size: 20px; opacity: .9; }
+  .ph-head .av { width: 34px; height: 34px; border-radius: 50%; background: #F0CD7E; color: #7A1024; display: grid; place-items: center; font: 700 17px "Shrikhand", Georgia, serif; flex: none; }
+  .ph-head .nm { font-weight: 600; font-size: 15.5px; }
+  .ph-head .sub { font-size: 11.5px; opacity: .85; }
+  .ph-head .shop-ic { margin-left: auto; font-size: 11px; border: 1.5px solid rgba(255,255,255,.7); border-radius: 6px; padding: 2px 6px; }
+  .ph-body { flex: 1; overflow-y: auto; padding: 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+  .ph-body.chat { background-color: #EFE7DC; background-image: radial-gradient(rgba(120,90,60,.07) 1.2px, transparent 1.3px); background-size: 14px 14px; }
+  .day { align-self: center; background: #FFF6E3; color: #6B5B45; font-size: 11.5px; padding: 3px 10px; border-radius: 8px; }
+  .msg { max-width: 82%; padding: 7px 9px 5px; border-radius: 10px; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+  .msg.in { background: #fff; align-self: flex-start; border-top-left-radius: 3px; }
+  .msg.out { background: #D8F3C6; align-self: flex-end; border-top-right-radius: 3px; }
+  .msg .time { display: block; text-align: right; font-size: 10.5px; color: #7A7468; margin-top: 2px; }
+  .msg canvas { border-radius: 7px; margin-bottom: 6px; width: 100%; height: auto; background: #E7EFEE; }
+  .msg .auto { font-size: 10.5px; color: #1E5A56; font-weight: 600; display: block; margin-bottom: 2px; }
+  .msg .bc { font-size: 10.5px; color: #8A6A1E; font-weight: 600; display: block; margin-bottom: 4px; }
+  .cat-card { margin-top: 8px; border-top: 1px solid #E6E0D6; padding-top: 8px; }
+  .cat-card .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .cat-card .thumbs canvas { margin: 0; aspect-ratio: 1; }
+  .cat-link { display: block; text-align: center; color: #0B7A6E; font-weight: 600; padding: 8px 0 2px; border-radius: 6px; }
+  .cart-bubble { display: flex; gap: 8px; align-items: center; }
+  .cart-bubble canvas { width: 54px; height: 54px; margin: 0; flex: none; }
+  .cart-bubble b { display: block; }
+  .ph-input { display: flex; gap: 8px; align-items: center; padding: 8px 10px 14px; background: #EFE7DC; }
+  .ph-input .box { flex: 1; background: #fff; border-radius: 20px; padding: 8px 14px; color: #8C877E; }
+  .ph-input .mic { width: 38px; height: 38px; border-radius: 50%; background: #1E7A52; flex: none; }
+
+  .ph-body.sheet { background: #fff; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 10px; }
+  .item canvas { width: 100%; height: auto; aspect-ratio: 5 / 6; border-radius: 8px; background: #EEF3F2; }
+  .item .nm { font-size: 13px; margin-top: 4px; line-height: 1.25; }
+  .item .pr { font-weight: 700; font-size: 13.5px; }
+  .item.pick { outline: 3px solid #E0A400; outline-offset: 3px; border-radius: 8px; }
+  .pd canvas { width: 100%; height: auto; aspect-ratio: 5 / 6; border-radius: 10px; background: #EEF3F2; }
+  .pd h4 { font-size: 17px; margin: 10px 0 2px; }
+  .pd .pr { font-size: 19px; font-weight: 700; }
+  .pd p { color: #555; margin-top: 6px; font-size: 13.5px; }
+  .pbtn { display: block; text-align: center; border-radius: 22px; padding: 10px; font-weight: 600; margin-top: 10px; }
+  .pbtn.fill { background: #1E7A52; color: #fff; }
+  .pbtn.ghost { border: 1.5px solid #1E7A52; color: #1E7A52; }
+  .cart-row { display: flex; gap: 10px; align-items: center; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+  .cart-row canvas { width: 64px; height: 76px; border-radius: 6px; flex: none; background: #EEF3F2; }
+  .qty { margin-left: auto; display: flex; align-items: center; gap: 10px; border: 1px solid #ddd; border-radius: 16px; padding: 2px 10px; }
+  .sum { display: flex; justify-content: space-between; font-weight: 700; padding: 12px 0; }
+  .note { color: #888; border: 1px dashed #ccc; border-radius: 8px; padding: 8px; font-size: 13px; }
+  .tap { position: relative; }
+  .tap::after {
+    content: ""; position: absolute; inset: -5px; border: 3px solid #E0A400; border-radius: inherit;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  .tap-hint { display: inline-block; background: #E0A400; color: #2A1C00; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 8px; margin-bottom: 4px; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+  /* Setup + limits */
+  section.block { padding-block: 44px; }
+  section.alt { background: var(--tint); }
+  .sec-head { margin-bottom: 20px; }
+  .sec-head h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+  .sec-head .gu { font-size: 1.05rem; }
+  .sec-head p { color: var(--muted); margin-top: 6px; max-width: 42em; }
+  .setup { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .setup li { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: grid; grid-template-columns: auto 1fr; gap: 2px 14px; }
+  .setup .ck { grid-row: span 2; width: 1.6rem; height: 1.6rem; border-radius: 6px; border: 2px solid var(--wa); margin-top: 3px; }
+  .setup b { font-size: 1.08rem; }
+  .setup span { color: var(--muted); }
+  .setup code { font-family: ui-monospace, Menlo, monospace; background: var(--chip); padding: 0 5px; border-radius: 4px; font-size: .9em; color: var(--ink); }
+
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .flow .node { background: var(--surface); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; font-weight: 600; }
+  .flow .node small { display: block; font-weight: 400; color: var(--muted); }
+  .flow .node.main { border-color: var(--wa); }
+  .flow .arr { color: var(--muted); font-size: 1.3rem; }
+
+  .limits { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .limits div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .limits b { display: block; font-size: 1.08rem; }
+  .limits p { color: var(--muted); }
+
+  footer { background: var(--peacock); color: var(--on-peacock); }
+  footer .wrap { padding-block: 20px 26px; font-size: .95rem; }
+
+  @media (max-width: 900px) {
+    .walk .wrap { grid-template-columns: 1fr; }
+    .stage { position: static; order: -1; }
+    .setup, .limits { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) { .wrap { padding-inline: 16px; } }
+  @media (prefers-reduced-motion: reduce) { .tap::after { animation: none; } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Sakhi Sarees</span>
+    <span class="what">Selling on WhatsApp · a walkthrough</span>
+  </div>
+  <div class="band" aria-hidden="true"></div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <h1>A whole sale, done inside WhatsApp</h1>
+    <p class="gu">વોટ્સએપ પર જ સાડી વેચો</p>
+    <p class="lede">Her customers already know how to use WhatsApp. With the free WhatsApp Business app, they can see her sarees, pick one and send an order without ever opening a website. Tap <b>Next</b> to follow one customer from start to finish.</p>
+  </div>
+</section>
+
+<section class="walk">
+  <div class="wrap">
+    <ol class="steps" id="steps"></ol>
+    <div class="stage">
+      <p class="stage-label">What the customer sees on her phone (a drawing, not a real screenshot)</p>
+      <div class="phone"><div class="screen" id="screen"></div></div>
+      <div class="nav">
+        <button class="btn btn-line" id="prev" type="button">Back</button>
+        <button class="btn btn-go" id="next" type="button">Next</button>
+      </div>
+      <p class="counter" id="counter" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>How the website and WhatsApp fit together</h2>
+      <p>People can find her in three ways. Everything ends up in the same WhatsApp chat.</p>
+    </div>
+    <div class="flow">
+      <span class="node">Website<small>shared link</small></span>
+      <span class="node">WhatsApp Status<small>new arrivals</small></span>
+      <span class="node">Broadcast list<small>regular customers</small></span>
+      <span class="arr" aria-hidden="true">→</span>
+      <span class="node main">WhatsApp chat<small>catalog and cart</small></span>
+      <span class="arr" aria-hidden="true">→</span>
+      <span class="node">Interac e-Transfer<small>payment</small></span>
+      <span class="arr" aria-hidden="true">→</span>
+      <span class="node">Canada Post or pickup<small>delivery</small></span>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>One-time setup for Meena ben</h2>
+      <p class="gu">એક વાર ગોઠવણી</p>
+      <p>All of this is in the free WhatsApp Business app, under Settings, then Business tools. About one afternoon, with help.</p>
+    </div>
+    <ul class="setup">
+      <li><span class="ck" aria-hidden="true"></span><b>Install WhatsApp Business</b><span>A separate free app. She can keep her current number or use a new one for the shop.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Fill in the business profile</b><span>Shop name, city, hours, a short line about her sarees.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Add each saree to the catalog</b><span>Photo, name, price and code (like GJ-201). Once per saree. Customers can then add them to a cart.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Turn on the greeting message</b><span>An automatic hello for new customers that points them to the catalog.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Save quick replies</b><span>Short cuts like <code>/pay</code> for e-Transfer details and <code>/ship</code> for delivery times. One tap instead of typing.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Make labels</b><span>New order, Paid, Shipped. She marks each chat so nothing gets lost.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Make a broadcast list</b><span>Regular customers who saved her number. She sends new arrivals to all of them at once.</span></li>
+      <li><span class="ck" aria-hidden="true"></span><b>Link it from the website</b><span>The website's green buttons open this chat. We add her number once and it all connects.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="block alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Good to know before starting</h2>
+    </div>
+    <div class="limits">
+      <div><b>Payment stays outside WhatsApp</b><p>WhatsApp can't take money in Canada. The customer pays by Interac e-Transfer and Meena ben checks her bank before shipping.</p></div>
+      <div><b>Orders come in as chat messages</b><p>There is no order screen. Labels (New order, Paid, Shipped) are how she keeps track.</p></div>
+      <div><b>Broadcasts only reach people who saved her number</b><p>Each broadcast list holds up to 256 people. That is why the website asks customers to save the number and say hi.</p></div>
+      <div><b>Photos sell the saree</b><p>Daylight, the full saree plus a close-up of the border and pallu. The same photos go on the website and in the catalog.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="band" aria-hidden="true"></div><div class="wrap">Sample walkthrough for family feedback. Names, prices and messages are examples.</div></footer>
+
+<script>
+const SHOP = "Sakhi Sarees", OWNER = "Meena ben";
+const PRODUCTS = [
+  { code: "GJ-201", name: "Gharchola with zari checks", price: 260, pattern: "checks", c: { body: "#B0122B", accent: "#1D6B3F", border: "#1D6B3F", zari: "#E0B24A", dot: "#F7E2A8" } },
+  { code: "GJ-102", name: "Jamnagari Bandhani Gajji silk", price: 165, pattern: "bandhani", c: { body: "#B3122E", accent: "#1C6B45", border: "#1C6B45", zari: "#E0B24A", dot: "#FFF3E0" } },
+  { code: "GJ-101", name: "Rajkot Patola silk", price: 350, pattern: "patola", c: { body: "#7A1024", accent: "#1F5B3A", border: "#1F5B3A", zari: "#D9A93F", dot: "#F2D27A" } },
+  { code: "SK-103", name: "Kanjivaram silk, temple border", price: 450, pattern: "buti", c: { body: "#9C1C5E", accent: "#C8901F", border: "#C8901F", zari: "#F1CF78", dot: "#F1CF78" } },
+  { code: "GJ-202", name: "Panetar, red bandhani border", price: 225, pattern: "bandhani", c: { body: "#FBF6EE", accent: "#B0122B", border: "#B0122B", zari: "#DDB050", dot: "#B0122B" } },
+  { code: "SK-104", name: "Banarasi silk, gold buta", price: 285, pattern: "buti", c: { body: "#123F73", accent: "#A31D35", border: "#A31D35", zari: "#E2B458", dot: "#E2B458" } },
+];
+/* Drawing code, copied from page.html */
+function rr(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function dot(ctx, x, y, r, col) { ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); }
+function flower(ctx, x, y, r, col, mid) {
+  for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2 + Math.PI / 4; dot(ctx, x + Math.cos(a) * r * .75, y + Math.sin(a) * r * .75, r * .55, col); }
+  dot(ctx, x, y, r * .38, mid || col);
+}
+function diamond(ctx, x, y, r, col) { ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(x, y - r); ctx.lineTo(x + r, y); ctx.lineTo(x, y + r); ctx.lineTo(x - r, y); ctx.closePath(); ctx.fill(); }
+function each(x, y, w, h, s, fn, stagger = true) {
+  let row = 0;
+  for (let yy = y - s; yy < y + h + s; yy += s, row++) {
+    const off = stagger && row % 2 ? s / 2 : 0;
+    for (let xx = x - s + off; xx < x + w + s; xx += s) fn(xx, yy);
+  }
+}
+
+function fillBody(ctx, p, x, y, w, h) {
+  const c = p.c;
+  ctx.fillStyle = c.body; ctx.fillRect(x, y, w, h);
+  switch (p.pattern) {
+    case "buti": each(x, y, w, h, 34, (a, b) => flower(ctx, a, b, 5, c.zari, c.body)); break;
+    case "bandhani": each(x, y, w, h, 18, (a, b) => { for (let i = 0; i < 4; i++) { const t = i * Math.PI / 2; dot(ctx, a + Math.cos(t) * 3.2, b + Math.sin(t) * 3.2, 1.5, c.dot); } }); break;
+    case "patola": each(x, y, w, h, 46, (a, b) => { diamond(ctx, a, b, 21, c.accent); diamond(ctx, a, b, 13, c.zari); diamond(ctx, a, b, 6, c.body); dot(ctx, a + 23, b, 2.2, c.dot); }, false); break;
+    case "checks":
+      ctx.strokeStyle = c.zari; ctx.lineWidth = 2.5;
+      for (let xx = x + 8; xx < x + w; xx += 40) { ctx.beginPath(); ctx.moveTo(xx, y); ctx.lineTo(xx, y + h); ctx.stroke(); }
+      for (let yy = y + 8; yy < y + h; yy += 40) { ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + w, yy); ctx.stroke(); }
+      each(x + 28, y + 28, w, h, 40, (a, b) => flower(ctx, a, b, 5, c.dot, c.accent), false);
+      break;
+    case "leheriya": {
+      ctx.save(); ctx.translate(x + w / 2, y + h / 2); ctx.rotate(-Math.PI / 4);
+      const D = Math.hypot(w, h), cols = c.stripes; let i = 0;
+      for (let s = -D; s < D; s += 13, i++) { ctx.fillStyle = cols[i % cols.length]; ctx.fillRect(-D, s, D * 2, 13); }
+      ctx.restore(); break;
+    }
+    case "kota":
+      ctx.strokeStyle = c.accent; ctx.globalAlpha = .28; ctx.lineWidth = 1.2;
+      for (let xx = x; xx < x + w; xx += 11) { ctx.beginPath(); ctx.moveTo(xx, y); ctx.lineTo(xx, y + h); ctx.stroke(); }
+      for (let yy = y; yy < y + h; yy += 11) { ctx.beginPath(); ctx.moveTo(x, yy); ctx.lineTo(x + w, yy); ctx.stroke(); }
+      ctx.globalAlpha = 1;
+      each(x, y, w, h, 55, (a, b) => dot(ctx, a, b, 2.5, c.zari));
+      break;
+    case "plain":
+      ctx.fillStyle = "rgba(0,0,0,.06)"; for (let xx = x; xx < x + w; xx += 3) ctx.fillRect(xx, y, 1, h);
+      ctx.fillStyle = "rgba(255,255,255,.07)"; for (let yy = y; yy < y + h; yy += 4) ctx.fillRect(x, yy, w, 1);
+      break;
+    case "floral": each(x, y, w, h, 58, (a, b) => {
+      for (let i = 0; i < 5; i++) { const t = i * Math.PI * 2 / 5; dot(ctx, a + Math.cos(t) * 8, b + Math.sin(t) * 8, 6, c.accent); }
+      dot(ctx, a, b, 4, c.zari);
+    }); break;
+    case "ajrakh":
+      each(x, y, w, h, 36, (a, b) => {
+        ctx.save(); ctx.translate(a, b); ctx.fillStyle = c.accent;
+        ctx.fillRect(-8, -8, 16, 16); ctx.rotate(Math.PI / 4); ctx.fillRect(-8, -8, 16, 16); ctx.restore();
+        dot(ctx, a, b, 3.5, c.zari); dot(ctx, a + 18, b + 18, 2, c.zari);
+      }, false);
+      break;
+    case "mirror": each(x, y, w, h, 42, (a, b) => {
+      for (let i = 0; i < 8; i++) { const t = i * Math.PI / 4; dot(ctx, a + Math.cos(t) * 11, b + Math.sin(t) * 11, 1.9, c.dot); }
+      dot(ctx, a, b, 6.5, c.zari); dot(ctx, a, b, 4.8, "#DDE3E7"); dot(ctx, a - 1.4, b - 1.4, 1.6, "#FFFFFF");
+    }); break;
+  }
+}
+
+function paisley(ctx, x, y, s, col) {
+  ctx.fillStyle = col; ctx.beginPath();
+  ctx.moveTo(x, y - s);
+  ctx.bezierCurveTo(x + s * 1.1, y - s * .4, x + s * .9, y + s, x, y + s);
+  ctx.bezierCurveTo(x - s * .9, y + s, x - s * .9, y + s * .1, x - s * .1, y - s * .1);
+  ctx.bezierCurveTo(x + s * .2, y - s * .4, x - s * .1, y - s * .8, x, y - s);
+  ctx.fill();
+}
+function borderBand(ctx, c, x, y, w, h) {
+  ctx.fillStyle = c.border; ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = c.zari;
+  const t = Math.max(2, h * .07);
+  ctx.fillRect(x, y + t, w, t); ctx.fillRect(x, y + h - t * 2, w, t);
+  const th = h - t * 5, step = th * 1.05;
+  if (th > 6) {
+    for (let xx = x; xx < x + w + step; xx += step) {
+      ctx.beginPath(); ctx.moveTo(xx - th * .45, y + h - t * 2.5); ctx.lineTo(xx, y + t * 2.5); ctx.lineTo(xx + th * .45, y + h - t * 2.5); ctx.closePath(); ctx.fill();
+    }
+  }
+}
+function pallu(ctx, c, x, y, w, h) {
+  ctx.fillStyle = c.accent; ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = c.zari;
+  const bands = [.1, .16, .5, .54, .86];
+  bands.forEach((f, i) => ctx.fillRect(x, y + h * f, w, i === 2 ? 5 : 2.5));
+  for (let xx = x + 22; xx < x + w; xx += 40) paisley(ctx, xx, y + h * .33, h * .1, c.zari);
+  for (let xx = x + 12; xx < x + w; xx += 24) dot(ctx, xx, y + h * .7, 2.4, c.zari);
+}
+function sheen(ctx, x, y, w, h) {
+  const g = ctx.createLinearGradient(x, y, x + w, y + h);
+  g.addColorStop(0, "rgba(255,255,255,.18)"); g.addColorStop(.45, "rgba(255,255,255,0)"); g.addColorStop(1, "rgba(0,0,0,.16)");
+  ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+}
+
+function drawFold(ctx, p, x, y, w, h, opt = {}) {
+  const withPallu = opt.pallu !== false, band = opt.band || .15;
+  ctx.save();
+  ctx.shadowColor = "rgba(40,20,10,.3)"; ctx.shadowBlur = opt.blur ?? 22; ctx.shadowOffsetY = opt.dy ?? 10;
+  ctx.fillStyle = p.c.body; rr(ctx, x, y, w, h, 5); ctx.fill();
+  ctx.restore();
+  ctx.save(); rr(ctx, x, y, w, h, 5); ctx.clip();
+  fillBody(ctx, p, x, y, w, h);
+  const ph = withPallu ? h * .3 : 0;
+  if (withPallu) pallu(ctx, p.c, x, y, w, ph);
+  borderBand(ctx, p.c, x, y + h - h * band, w, h * band);
+  if (withPallu) { ctx.fillStyle = "rgba(0,0,0,.18)"; ctx.fillRect(x, y + ph, w, 2); }
+  const fold = ctx.createLinearGradient(x + w - 26, 0, x + w, 0);
+  fold.addColorStop(0, "rgba(0,0,0,0)"); fold.addColorStop(1, "rgba(0,0,0,.2)");
+  ctx.fillStyle = fold; ctx.fillRect(x + w - 26, y, 26, h);
+  sheen(ctx, x, y, w, h);
+  ctx.restore();
+}
+
+function drawSkirt(ctx, p, W, H) {
+  const c = p.c, cx = W / 2, top = H * .16, bot = H * .9, tw = W * .34, bw = W * .86;
+  const path = () => {
+    ctx.beginPath();
+    ctx.moveTo(cx - tw / 2, top); ctx.lineTo(cx + tw / 2, top);
+    ctx.quadraticCurveTo(cx + bw * .36, H * .5, cx + bw / 2, bot);
+    ctx.quadraticCurveTo(cx, bot + H * .06, cx - bw / 2, bot);
+    ctx.quadraticCurveTo(cx - bw * .36, H * .5, cx - tw / 2, top);
+    ctx.closePath();
+  };
+  ctx.save(); ctx.shadowColor = "rgba(40,20,10,.3)"; ctx.shadowBlur = 22; ctx.shadowOffsetY = 10;
+  ctx.fillStyle = c.body; path(); ctx.fill(); ctx.restore();
+  ctx.save(); path(); ctx.clip();
+  fillBody(ctx, p, 0, top, W, H - top);
+  borderBand(ctx, c, 0, bot - H * .1, W, H * .2);
+  ctx.strokeStyle = "rgba(0,0,0,.16)"; ctx.lineWidth = 2;
+  for (let i = -6; i <= 6; i++) { ctx.beginPath(); ctx.moveTo(cx + i * tw / 13, top); ctx.lineTo(cx + i * bw / 12, bot + 30); ctx.stroke(); }
+  sheen(ctx, 0, top, W, H - top);
+  ctx.restore();
+  // waistband
+  ctx.fillStyle = c.border; rr(ctx, cx - tw / 2 - 6, top - 14, tw + 12, 18, 4); ctx.fill();
+  ctx.fillStyle = c.zari; ctx.fillRect(cx - tw / 2 - 6, top - 7, tw + 12, 3);
+  // tassels
+  ctx.strokeStyle = c.accent; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.moveTo(cx + tw / 2 - 8, top); ctx.lineTo(cx + tw / 2 + 4, top + H * .16); ctx.stroke();
+  dot(ctx, cx + tw / 2 + 4, top + H * .16 + 5, 6, c.accent);
+}
+
+const byCode = c => PRODUCTS.find(p => p.code === c);
+const money = n => "$" + n;
+const pick = byCode("GJ-201");
+
+function draw(code, w = 200, h = 240, mode = "card") {
+  return `<canvas data-draw="${code}" data-mode="${mode}" width="${w}" height="${h}" role="img" aria-label="Drawing of ${byCode(code).name}"></canvas>`;
+}
+function paintAll(root) {
+  root.querySelectorAll("canvas[data-draw]").forEach(cv => {
+    const p = byCode(cv.dataset.draw), W = +cv.getAttribute("width"), H = +cv.getAttribute("height");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = W * dpr; cv.height = H * dpr;
+    const ctx = cv.getContext("2d"); ctx.scale(dpr, dpr);
+    if (cv.dataset.mode === "square") drawFold(ctx, p, W * .08, H * .08, W * .84, H * .84, { band: .2, blur: 6, dy: 2 });
+    else drawFold(ctx, p, W * .1, H * .08, W * .8, H * .82, { blur: 10, dy: 4 });
+  });
+}
+
+const status = `<div class="ph-status"><span>10:15</span><span>●●● 5G</span></div>`;
+const chatHead = `${status}<div class="ph-head"><span class="back">‹</span><span class="av">S</span><div><div class="nm">${SHOP}</div><div class="sub">Business account</div></div><span class="shop-ic">Catalog</span></div>`;
+const sheetHead = t => `${status}<div class="ph-head"><span class="back">‹</span><div><div class="nm">${t}</div><div class="sub">${SHOP}</div></div></div>`;
+const input = `<div class="ph-input"><span class="box">Message</span><span class="mic"></span></div>`;
+const chat = body => `${chatHead}<div class="ph-body chat">${body}</div>${input}`;
+
+const broadcast = `<div class="day">Today</div>
+  <div class="msg in"><span class="bc">New arrival</span>${draw("GJ-102", 240, 200, "square")}Jamnagari Bandhani just arrived 🌸 Gajji silk, $165. Tap <b>Catalog</b> at the top to see everything.<span class="time">10:02</span></div>`;
+const hello = `<div class="msg out">Hi! Do you have Gharchola for my niece's wedding?<span class="time">10:14</span></div>`;
+const greeting = (tap) => `<div class="msg in"><span class="auto">Automatic reply</span>Namaste! 🙏 Welcome to ${SHOP}. All our sarees with prices are in the catalog below. ${OWNER} will reply to you soon.
+    <div class="cat-card"><div class="thumbs">${draw("GJ-201", 90, 90, "square")}${draw("GJ-101", 90, 90, "square")}${draw("SK-103", 90, 90, "square")}</div>
+    ${tap ? '<span class="tap-hint">Tap here</span>' : ""}<span class="cat-link ${tap ? "tap" : ""}">View catalog</span></div><span class="time">10:14</span></div>`;
+const cartSent = `<div class="msg out"><div class="cart-bubble">${draw("GJ-201", 54, 54, "square")}<div><b>1 item</b>${money(pick.price)} estimated total<br><span style="color:#0B7A6E;font-weight:600">View sent cart</span></div></div><span class="time">10:21</span></div>`;
+const payMsg = `<div class="msg in">Thank you! 🙏 The Gharchola is available.<br><br>Total: $260 + $15 shipping = <b>$275</b>.<br>Please send an Interac e-Transfer to <b>sakhisarees@example.com</b> and reply with your address.<span class="time">10:24</span></div>`;
+
+const STEPS = [
+  { t: "She sees a new saree", cust: "A photo pops up on her phone from the shop.", mom: "Posts the photo to her Status, or sends it to her broadcast list.",
+    screen: () => chat(broadcast) },
+  { t: "She says hello", cust: "She types a question. A friendly reply comes back straight away.", mom: "Nothing. The greeting message is automatic.",
+    screen: () => chat(broadcast + hello + greeting(true)) },
+  { t: "She opens the catalog", cust: "All the sarees, with photos and prices, like a little shop window.", mom: "Added each saree to the catalog once.",
+    screen: () => `${sheetHead("Catalog")}<div class="ph-body sheet"><div class="grid2">${PRODUCTS.map(p => `<div class="item ${p === pick ? "pick" : ""}">${draw(p.code)}<div class="nm">${p.name}</div><div class="pr">${money(p.price)}</div></div>`).join("")}</div></div>` },
+  { t: "She taps the one she likes", cust: "Big photo, price and details. One button to add it to her cart.", mom: "Nothing. The catalog shows it.",
+    screen: () => `${sheetHead("Catalog")}<div class="ph-body sheet pd">${draw(pick.code, 300, 360)}<h4>${pick.name}</h4><div class="pr">${money(pick.price)}</div><p>Traditional Gujarati wedding saree. Silk with zari squares. Code ${pick.code}.</p><span class="pbtn fill tap">Add to cart</span><span class="pbtn ghost">Message business</span></div>` },
+  { t: "She sends her cart", cust: "She checks the cart and taps Send. That is her order.", mom: "Nothing yet.",
+    screen: () => `${sheetHead("Your cart")}<div class="ph-body sheet"><div class="cart-row">${draw(pick.code, 64, 76)}<div><b style="font-size:14px">${pick.name}</b><div>${money(pick.price)}</div></div><span class="qty">– 1 +</span></div><div class="sum"><span>Estimated total</span><span>${money(pick.price)}</span></div><div class="note">Add a note (optional)</div><span class="pbtn fill tap" style="margin-top:16px">Send to business</span></div>` },
+  { t: "Meena ben replies with the total", cust: "She gets the total with shipping and how to pay.", mom: "Types /pay. A saved quick reply fills in the message. She labels the chat “New order”.",
+    screen: () => chat(`<div class="day">Today</div>` + hello + cartSent + payMsg) },
+  { t: "She pays and it ships", cust: "She sends an e-Transfer and her address. A tracking number comes back.", mom: "Checks her bank, packs the saree, changes the label to “Paid”, then “Shipped”.",
+    screen: () => chat(`<div class="day">Today</div>` + cartSent + payMsg +
+      `<div class="msg out">Sent the e-Transfer 👍 Address: 12 Maple Street, Brampton ON<span class="time">10:40</span></div>
+       <div class="msg in">Received, thank you! Shipping tomorrow by Canada Post. Tracking number: 7023 1234 5678 9012<span class="time">11:05</span></div>
+       <div class="msg in">Send me a photo when you wear it 😊<span class="time">11:05</span></div>`) },
+];
+
+let at = 0;
+const $ = s => document.querySelector(s);
+function render() {
+  const list = $("#steps"); list.innerHTML = "";
+  STEPS.forEach((s, i) => {
+    const li = document.createElement("li");
+    const b = document.createElement("button"); b.type = "button"; b.className = "step";
+    if (i === at) b.setAttribute("aria-current", "step");
+    b.innerHTML = `<span class="n">${i + 1}</span><span class="t"></span><span class="who"></span><span class="who"></span>`;
+    b.querySelector(".t").textContent = s.t;
+    const w = b.querySelectorAll(".who");
+    w[0].innerHTML = "<b>Customer:</b> "; w[0].append(s.cust);
+    w[1].innerHTML = `<b>${OWNER}:</b> `; w[1].append(s.mom);
+    b.addEventListener("click", () => { at = i; render(); });
+    li.appendChild(b); list.appendChild(li);
+  });
+  const sc = $("#screen"); sc.innerHTML = STEPS[at].screen(); paintAll(sc);
+  const body = sc.querySelector(".ph-body.chat"); if (body) body.scrollTop = body.scrollHeight;
+  $("#prev").disabled = at === 0;
+  $("#next").textContent = at === STEPS.length - 1 ? "Start again" : "Next";
+  $("#counter").textContent = `Step ${at + 1} of ${STEPS.length}: ${STEPS[at].t}`;
+}
+$("#prev").addEventListener("click", () => { if (at > 0) { at--; render(); } });
+$("#next").addEventListener("click", () => { at = at === STEPS.length - 1 ? 0 : at + 1; render(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") $("#next").click();
+  if (e.key === "ArrowLeft" && at > 0) $("#prev").click();
+});
+render();
+</script>
