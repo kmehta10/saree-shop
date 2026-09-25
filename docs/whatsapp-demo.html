@@ -259,7 +259,7 @@
 <section class="block">
   <div class="wrap">
     <div class="sec-head">
-      <h2>One-time setup for Meena ben</h2>
+      <h2>One-time setup for Jayshree</h2>
       <p class="gu">એક વાર ગોઠવણી</p>
       <p>All of this is in the free WhatsApp Business app, under Settings, then Business tools. About one afternoon, with help.</p>
     </div>
@@ -282,7 +282,7 @@
       <h2>Good to know before starting</h2>
     </div>
     <div class="limits">
-      <div><b>Payment stays outside WhatsApp</b><p>WhatsApp can't take money in Canada. The customer pays by Interac e-Transfer and Meena ben checks her bank before shipping.</p></div>
+      <div><b>Payment stays outside WhatsApp</b><p>WhatsApp can't take money in Canada. The customer pays by Interac e-Transfer and Jayshree checks her bank before shipping.</p></div>
       <div><b>Orders come in as chat messages</b><p>There is no order screen. Labels (New order, Paid, Shipped) are how she keeps track.</p></div>
       <div><b>Broadcasts only reach people who saved her number</b><p>Each broadcast list holds up to 256 people. That is why the website asks customers to save the number and say hi.</p></div>
       <div><b>Photos sell the saree</b><p>Daylight, the full saree plus a close-up of the border and pallu. The same photos go on the website and in the catalog.</p></div>
@@ -293,7 +293,7 @@
 <footer><div class="band" aria-hidden="true"></div><div class="wrap">Sample walkthrough for family feedback. Names, prices and messages are examples.</div></footer>
 
 <script>
-const SHOP = "Sakhi Sarees", OWNER = "Meena ben";
+const SHOP = "Sakhi Sarees", OWNER = "Jayshree";
 const PRODUCTS = [
   { code: "GJ-201", name: "Gharchola with zari checks", price: 260, pattern: "checks", c: { body: "#B0122B", accent: "#1D6B3F", border: "#1D6B3F", zari: "#E0B24A", dot: "#F7E2A8" } },
   { code: "GJ-102", name: "Jamnagari Bandhani Gajji silk", price: 165, pattern: "bandhani", c: { body: "#B3122E", accent: "#1C6B45", border: "#1C6B45", zari: "#E0B24A", dot: "#FFF3E0" } },
@@ -499,11 +499,11 @@ const STEPS = [
     screen: () => `${sheetHead("Catalog")}<div class="ph-body sheet pd">${draw(pick.code, 300, 360)}<h4>${pick.name}</h4><div class="pr">${money(pick.price)}</div><p>Traditional Gujarati wedding saree. Silk with zari squares. Code ${pick.code}.</p><span class="pbtn fill tap">Add to cart</span><span class="pbtn ghost">Message business</span></div>` },
   { t: "She sends her cart", cust: "She checks the cart and taps Send. That is her order.", mom: "Nothing yet.",
     screen: () => `${sheetHead("Your cart")}<div class="ph-body sheet"><div class="cart-row">${draw(pick.code, 64, 76)}<div><b style="font-size:14px">${pick.name}</b><div>${money(pick.price)}</div></div><span class="qty">– 1 +</span></div><div class="sum"><span>Estimated total</span><span>${money(pick.price)}</span></div><div class="note">Add a note (optional)</div><span class="pbtn fill tap" style="margin-top:16px">Send to business</span></div>` },
-  { t: "Meena ben replies with the total", cust: "She gets the total with shipping and how to pay.", mom: "Types /pay. A saved quick reply fills in the message. She labels the chat “New order”.",
+  { t: "Jayshree replies with the total", cust: "She gets the total with shipping and how to pay.", mom: "Types /pay. A saved quick reply fills in the message. She labels the chat “New order”.",
     screen: () => chat(`<div class="day">Today</div>` + hello + cartSent + payMsg) },
   { t: "She pays and it ships", cust: "She sends an e-Transfer and her address. A tracking number comes back.", mom: "Checks her bank, packs the saree, changes the label to “Paid”, then “Shipped”.",
     screen: () => chat(`<div class="day">Today</div>` + cartSent + payMsg +
-      `<div class="msg out">Sent the e-Transfer 👍 Address: 12 Maple Street, Brampton ON<span class="time">10:40</span></div>
+      `<div class="msg out">Sent the e-Transfer 👍 Address: 12 Maple Street, Ajax ON<span class="time">10:40</span></div>
        <div class="msg in">Received, thank you! Shipping tomorrow by Canada Post. Tracking number: 7023 1234 5678 9012<span class="time">11:05</span></div>
        <div class="msg in">Send me a photo when you wear it 😊<span class="time">11:05</span></div>`) },
 ];
@@ -539,5 +539,6 @@ document.addEventListener("keydown", e => {
 render();
 </script>
 
+<script src="switcher.js"></script>
 </body>
 </html>

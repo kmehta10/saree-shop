@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sakhi Sarees</title>
+<meta name="description" content="Sarees from Jayshree's home in Ajax. Message on WhatsApp for photos, videos and prices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500;600;700;800&family=Mukta+Vaani:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    color-scheme: light;
+    --ground: #FFFFFF;
+    --pink: #FCEEF2;
+    --teal: #E8F3F1;
+    --haldi: #FFF4D4;
+    --ink: #1F1416;
+    --muted: #5C4A4F;
+    --line: #EBDCE1;
+    --rani: #A8124B;
+    --rani-dark: #860D3A;
+    --peacock: #0D5961;
+    --gold: #F2B632;
+    --wa: #146C3C;
+    --wa-hover: #0F5A31;
+    --focus: #1B6FD8;
+    --head: "Baloo Bhai 2", "Noto Sans Gujarati", system-ui, sans-serif;
+    --sans: "Mukta Vaani", "Noto Sans Gujarati", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  html { font-size: 118.75%; scroll-behavior: smooth; }
+  html.big-text { font-size: 137.5%; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 400 1rem/1.6 var(--sans); }
+  img, canvas { display: block; max-width: 100%; }
+  h1, h2, h3 { font-family: var(--head); line-height: 1.15; margin: 0; text-wrap: balance; }
+  h2 { font-weight: 700; }
+  p { margin: 0; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .wrap { max-width: 1160px; margin-inline: auto; padding-inline: 24px; }
+  .gu { color: var(--muted); font-weight: 500; }
+  [id] { scroll-margin-top: 90px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 3.2rem; padding: 10px 24px;
+    border-radius: 14px; border: 2px solid transparent; font: 700 1.02rem/1.2 var(--sans); text-decoration: none; cursor: pointer; transition: background-color .15s, border-color .15s; }
+  .btn svg { width: 1.35em; height: 1.35em; flex: none; }
+  .btn-wa { background: var(--wa); color: #fff; }
+  .btn-wa:hover { background: var(--wa-hover); }
+  .btn-rani { background: var(--rani); color: #fff; }
+  .btn-rani:hover { background: var(--rani-dark); }
+  .btn-line { background: #fff; color: var(--ink); border-color: var(--line); }
+  .btn-line:hover { border-color: var(--ink); }
+  .btn-block { width: 100%; }
+  .btn-big { min-height: 3.8rem; font-size: 1.15rem; padding-inline: 28px; }
+
+  .sample { background: var(--haldi); text-align: center; font-size: .84rem; padding: 7px 16px; }
+
+  header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: #fff; border-bottom: 1px solid var(--line); }
+  .hdr { display: flex; align-items: center; gap: 14px; padding-block: 10px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo .seal { width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--rani); color: #fff; display: grid; place-items: center; font: 700 1.3rem var(--head); box-shadow: inset 0 0 0 3px var(--rani), inset 0 0 0 5px var(--gold); }
+  .logo .nm { font: 800 1.45rem/1 var(--head); color: var(--rani); }
+  .logo .sub { display: block; font: 500 .82rem/1.2 var(--sans); color: var(--muted); }
+  .hdr-actions { margin-left: auto; display: flex; gap: 10px; }
+  .aa { background: #fff; border: 2px solid var(--line); border-radius: 12px; min-height: 2.9rem; padding: 4px 14px; cursor: pointer; font: 600 .95rem var(--sans); color: var(--ink); }
+  .aa b { font-family: var(--head); font-size: 1.15em; margin-right: 4px; }
+  .aa[aria-pressed="true"] { border-color: var(--rani); background: var(--pink); }
+
+  /* Hero */
+  .hero { background: var(--pink); }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 44px; align-items: center; padding-block: 48px; }
+  .owner { display: flex; gap: 18px; align-items: center; }
+  .portrait { flex: none; width: 7.5rem; height: 7.5rem; border-radius: 50%; background: #fff; display: grid; place-items: center; text-align: center;
+    border: 3px dashed var(--rani); color: var(--rani); font: 600 .78rem/1.2 var(--sans); padding: 10px; }
+  .portrait b { display: block; font: 800 2.2rem/1 var(--head); }
+  .hero .hi { font: 600 1.15rem var(--head); color: var(--rani); }
+  .hero h1 { font-size: clamp(2.2rem, 4.6vw, 3.4rem); font-weight: 800; margin-top: 2px; }
+  .hero .gu { font-size: 1.2rem; margin-top: 16px; }
+  .hero .lede { font-size: 1.12rem; margin-top: 10px; max-width: 30em; }
+  .hero .cta { display: grid; gap: 10px; margin-top: 26px; max-width: 26rem; }
+  .hero .phone { font-size: 1rem; color: var(--muted); }
+  .hero .phone b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .quad { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .quad img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border-radius: 18px; background: #F3DCE3; }
+  .quad img:nth-child(2) { margin-top: 28px; }
+  .quad img:nth-child(3) { margin-top: -28px; }
+
+  /* Steps */
+  .steps { background: #fff; border-bottom: 1px solid var(--line); }
+  .steps ol { list-style: none; margin: 0; padding-block: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: s; }
+  .steps li { display: flex; gap: 14px; align-items: flex-start; }
+  .steps li::before { counter-increment: s; content: counter(s); flex: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--gold); color: var(--ink); display: grid; place-items: center; font: 800 1.35rem var(--head); }
+  .steps b { display: block; font: 700 1.2rem/1.25 var(--head); }
+  .steps span { color: var(--muted); }
+
+  section.block { padding-block: 60px; }
+  section.pink { background: var(--pink); }
+  section.teal { background: var(--teal); }
+  .head { margin-bottom: 26px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 10px 20px; }
+  .head h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+  .head .gu { font-size: 1.1rem; }
+  .head p.sub { color: var(--muted); margin-top: 4px; max-width: 34em; }
+
+  /* Cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 24px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(80,20,40,.05); }
+  .card .pic { position: relative; border: 0; padding: 0; width: 100%; display: block; cursor: pointer; background: var(--pink); }
+  .card .pic img, .card .pic canvas { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+  .chip { position: absolute; font-size: .74rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .chip.note { left: 10px; bottom: 10px; background: rgba(255,255,255,.92); color: #3A2A22; }
+  .chip.new { left: 10px; top: 10px; background: var(--gold); color: var(--ink); }
+  .card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .card h3 { font-size: 1.3rem; font-weight: 700; }
+  .card .gu { font-size: .92rem; }
+  .card .meta { color: var(--muted); font-size: .95rem; }
+  .card .price { font: 800 1.6rem var(--head); color: var(--rani); margin-top: auto; padding-top: 8px; font-variant-numeric: tabular-nums; }
+  .card .code { font-size: .8rem; color: var(--muted); letter-spacing: .04em; }
+  .card .acts { display: grid; gap: 8px; padding-top: 14px; }
+
+  /* Budget + type tiles */
+  .budget { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .btile, .ttile { position: relative; border: 3px solid transparent; border-radius: 20px; overflow: hidden; padding: 0; cursor: pointer; background: #fff; text-align: left; font: inherit; color: var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(80,20,40,.06); }
+  .btile img, .btile canvas { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: center 20%; }
+  .btile .t, .ttile .t { padding: 14px 18px 16px; }
+  .btile b { display: block; font: 800 1.6rem/1.1 var(--head); color: var(--rani); }
+  .btile span, .ttile span { color: var(--muted); }
+  .btile[aria-pressed="true"], .ttile[aria-pressed="true"] { border-color: var(--rani); }
+  .types { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .ttile img, .ttile canvas { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: center top; }
+  .ttile b { display: block; font: 700 1.2rem/1.2 var(--head); }
+
+  .filters { display: grid; gap: 10px; margin-bottom: 14px; }
+  .frow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .frow .lbl { font-weight: 700; min-width: 5em; }
+  .pill { min-height: 2.8rem; padding: 6px 18px; border-radius: 12px; border: 2px solid var(--line); background: #fff; cursor: pointer; font: 600 1rem/1.2 var(--sans); color: var(--ink); }
+  .pill[aria-pressed="true"] { background: var(--peacock); border-color: var(--peacock); color: #fff; }
+  .status { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; color: var(--muted); margin-bottom: 20px; }
+  .linkish { background: none; border: 0; padding: 6px 0; font: 700 1rem var(--sans); color: var(--rani); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .empty { grid-column: 1 / -1; padding: 40px; text-align: center; border: 2px dashed var(--line); border-radius: 18px; }
+
+  /* Services */
+  .help { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .help li { list-style: none; background: #fff; border-radius: 18px; padding: 18px 20px; display: grid; grid-template-columns: auto 1fr; gap: 2px 16px; align-items: start; }
+  .help ul { margin: 0; padding: 0; display: contents; }
+  .help .ic { grid-row: span 2; width: 3rem; height: 3rem; border-radius: 14px; background: var(--teal); color: var(--peacock); display: grid; place-items: center; }
+  .help .ic svg { width: 1.5rem; height: 1.5rem; }
+  .help b { font: 700 1.2rem/1.3 var(--head); }
+  .help span { color: var(--muted); }
+
+  /* Reviews as a chat */
+  .chatwrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: center; }
+  .chat { background: #EFE7DC; background-image: radial-gradient(rgba(120,90,60,.07) 1.2px, transparent 1.3px); background-size: 14px 14px; border-radius: 24px; padding: 22px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .bub { max-width: 88%; background: #fff; border-radius: 4px 16px 16px 16px; padding: 10px 14px 6px; box-shadow: 0 1px 1px rgba(0,0,0,.08); color: #1C1B1A; }
+  .bub.me { align-self: flex-end; background: #D8F3C6; border-radius: 16px 4px 16px 16px; }
+  .bub .meta { display: flex; justify-content: space-between; gap: 12px; font-size: .75rem; color: #7A7468; margin-top: 2px; }
+  .bub .ex { font-weight: 700; color: #8A6A1E; }
+
+  /* Visit */
+  .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .vcard { background: #fff; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--line); }
+  .vcard > .btn { margin-top: auto; }
+  .vcard h3 { font-size: 1.5rem; font-weight: 700; }
+  .vcard p { color: var(--muted); }
+  .date { display: flex; gap: 16px; align-items: center; }
+  .cal { flex: none; width: 4.6rem; text-align: center; border-radius: 14px; overflow: hidden; border: 2px solid var(--rani); }
+  .cal .m { background: var(--rani); color: #fff; font: 700 .8rem var(--sans); letter-spacing: .1em; padding: 3px 0; }
+  .cal .d { font: 800 2rem/1.3 var(--head); }
+  .vcard .ex { font-size: .8rem; font-weight: 700; color: #8A6A1E; }
+
+  .faq details { background: #fff; border: 1px solid var(--line); border-radius: 16px; margin-bottom: 10px; }
+  .faq summary { cursor: pointer; list-style: none; padding: 16px 52px 16px 20px; font: 700 1.1rem/1.35 var(--head); position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: 18px; top: 10px; font: 700 1.7rem var(--head); color: var(--rani); }
+  .faq details[open] summary::after { content: "–"; }
+  .faq details p { padding: 0 20px 18px; color: var(--muted); }
+
+  footer { background: var(--peacock); color: #E3F1EF; }
+  footer .wrap { padding-block: 40px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; }
+  footer .nm { font: 800 1.6rem var(--head); color: #fff; }
+  footer p { font-size: .95rem; }
+  footer .credit { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,.2); padding-top: 16px; font-size: .85rem; }
+  footer a { color: #FFE6A0; }
+
+  .wa-bar { display: none; }
+
+  dialog.dlg { width: min(960px, calc(100% - 24px)); max-height: calc(100% - 24px); padding: 0; border: 0; border-radius: 22px; background: #fff; color: var(--ink); box-shadow: 0 24px 70px rgba(30,5,15,.4); }
+  dialog.dlg::backdrop { background: rgba(31, 20, 22, .6); }
+  .dlg-top { position: sticky; top: 0; z-index: 2; display: flex; justify-content: flex-end; padding: 12px 12px 0; }
+  .dlg-close { background: #fff; border: 2px solid var(--line); border-radius: 12px; min-height: 2.9rem; padding: 4px 16px; font: 700 1rem var(--sans); cursor: pointer; color: var(--ink); }
+  .dlg-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 4px 28px 28px; }
+  .dlg-pic { border-radius: 16px; overflow: hidden; background: var(--pink); align-self: start; }
+  .dlg-pic img, .dlg-pic canvas { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+  .dlg-code { font-size: .82rem; color: var(--muted); }
+  .dlg-info h2 { font-size: 2rem; }
+  .dlg-gu { color: var(--muted); font-size: 1.1rem; }
+  .dlg-price { font: 800 2rem var(--head); color: var(--rani); margin-top: 6px; }
+  .dlg-desc { margin-top: 8px; font-size: 1.05rem; }
+  .dlg-facts { display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; margin: 18px 0 0; padding-top: 16px; border-top: 1px solid var(--line); }
+  .dlg-facts dt { color: var(--muted); }
+  .dlg-facts dd { margin: 0; font-weight: 600; }
+  .dlg-actions { display: grid; gap: 10px; margin-top: 22px; }
+  .dlg-note { margin-top: 12px; font-size: .88rem; color: var(--muted); }
+
+  @media (max-width: 1000px) {
+    .types { grid-template-columns: repeat(2, 1fr); }
+    .grid.three { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 860px) {
+    .hero .wrap, .chatwrap { grid-template-columns: 1fr; }
+    .hero .wrap { padding-block: 32px 40px; }
+    .steps ol, .budget, .help, .visit { grid-template-columns: 1fr; }
+    .dlg-inner { grid-template-columns: 1fr; padding: 4px 18px 22px; }
+    footer .wrap { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding-inline: 16px; }
+    .logo .sub, .hdr-wa, .aa .long { display: none; }
+    .owner { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .portrait { width: 6rem; height: 6rem; }
+    .grid, .grid.three { grid-template-columns: 1fr; }
+    .types { gap: 10px; }
+    .ttile .t { padding: 10px 12px 12px; }
+    .ttile b { font-size: 1.05rem; }
+    .btile img { aspect-ratio: 16 / 8; }
+    section.block { padding-block: 44px; }
+    .wa-bar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: #fff; border-top: 1px solid var(--line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); }
+    body { padding-bottom: 5.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="sample"><b>Sample preview.</b> Photos are free stock photos from Unsplash. Names, prices, dates, messages, services and policies are examples.</div>
+
+<header class="site">
+  <div class="wrap hdr">
+    <a class="logo" href="#top"><span class="seal" aria-hidden="true">સ</span><span><span class="nm" data-config="shopName">Sakhi Sarees</span><span class="sub"><span data-config="ownerName">Jayshree</span>'s home shop · <span data-config="city">Ajax</span></span></span></a>
+    <div class="hdr-actions">
+      <button class="aa" id="textSize" type="button" aria-pressed="false"><b>A+</b><span class="long">Bigger text</span></button>
+      <a class="btn btn-wa hdr-wa" data-wa="hello" href="#" target="_blank" rel="noopener">WhatsApp me</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="owner">
+          <div class="portrait" aria-label="Space for Jayshree's photo"><span><b>J</b>Her photo<br>goes here</span></div>
+          <div>
+            <p class="hi">Namaste, and welcome · પધારો</p>
+            <h1>I'm <span data-config="ownerName">Jayshree</span>. I sell sarees from my home.</h1>
+          </div>
+        </div>
+        <p class="gu">મારા ઘરેથી પસંદગીની સાડીઓ</p>
+        <p class="lede">Silk sarees, Gujarati classics and chaniya choli, each one picked by me. Send me a message and I will send you photos and a video, or you can come and see them at home.</p>
+        <div class="cta">
+          <a class="btn btn-wa btn-big" data-wa="hello" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z"/></svg>
+            Message me on WhatsApp
+          </a>
+          <a class="btn btn-line" href="#new">See this week's sarees</a>
+          <p class="phone">Or call: <b data-config="phoneDisplay">+1 (000) 000-0000</b></p>
+        </div>
+      </div>
+      <div class="quad" id="quad"></div>
+    </div>
+  </section>
+
+  <div class="steps">
+    <ol class="wrap">
+      <li><div><b>Pick a saree you like</b><span>Tap it to see the price and details.</span></div></li>
+      <li><div><b>Send me a WhatsApp</b><span>The saree name is typed for you. I send more photos or a video.</span></div></li>
+      <li><div><b>Pay and receive</b><span>Interac e-Transfer. Canada Post, or pick up from my home.</span></div></li>
+    </ol>
+  </div>
+
+  <section class="block" id="new">
+    <div class="wrap">
+      <div class="head"><div><h2>New this week</h2><p class="gu">આ અઠવાડિયાની નવી સાડીઓ</p><p class="sub">Every piece is one of a kind. If you like one, message early.</p></div></div>
+      <div class="grid three" id="newGrid"></div>
+    </div>
+  </section>
+
+  <section class="block pink">
+    <div class="wrap">
+      <div class="head"><div><h2>What is your budget?</h2><p class="gu">તમારું બજેટ</p></div></div>
+      <div class="budget" id="budget"></div>
+    </div>
+  </section>
+
+  <section class="block" id="shop">
+    <div class="wrap">
+      <div class="head"><div><h2>What are you looking for?</h2><p class="gu">તમને શું જોઈએ છે?</p></div></div>
+      <div class="types" id="types"></div>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0" id="all">
+    <div class="wrap">
+      <div class="head"><div><h2 id="shopTitle">All my sarees</h2></div></div>
+      <div class="filters">
+        <div class="frow" role="group" aria-label="Occasion"><span class="lbl">For</span><span id="occRow" class="frow"></span></div>
+      </div>
+      <div class="status"><span id="count" aria-live="polite"></span><button class="linkish" id="clear" type="button" hidden>Show everything</button></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="block teal">
+    <div class="wrap">
+      <div class="head"><div><h2>What I can do for you</h2><p class="gu">હું તમારા માટે શું કરી શકું</p></div></div>
+      <ul class="help">
+        <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M4 20 20 4M14 4h6v6"/></svg></span><b>Fall &amp; pico, free</b><span>Your saree comes ready to drape.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M8 3 4 6v4l2 1v10h12V11l2-1V6l-4-3c0 2-2 3-4 3S8 5 8 3z"/></svg></span><b>Blouse stitching, from $45</b><span>Send an old blouse that fits, or your measurements. About 2 weeks.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 7h12v10H3zM15 11l6-4v10l-6-4"/></svg></span><b>Video call to see it</b><span>I show you the saree in daylight before you pay.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 11 12 4l9 7M5 10v10h14V10M10 20v-6h4v6"/></svg></span><b>Come to my home</b><span>By appointment in <span data-config="city">Ajax</span>. See everything, with chai.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M3 9h18v4H3zM5 13v8h14v-8M12 9v12"/></svg></span><b>Gift wrapping, free</b><span>With a handwritten card. I can ship straight to the person.</span></li>
+        <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M2 7h12v9H2zM14 10h4l3 3v3h-7M6 19a2 2 0 1 0 0-.1M17 19a2 2 0 1 0 0-.1"/></svg></span><b>Shipping across Canada</b><span>Canada Post with tracking, usually 2 to 6 days.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap chatwrap">
+      <div>
+        <h2 style="font-size:clamp(1.9rem,3.4vw,2.6rem)">What customers say</h2>
+        <p class="gu" style="margin-top:4px">ગ્રાહકો શું કહે છે</p>
+        <p style="margin-top:12px;color:var(--muted);max-width:28em">These are example messages. Real messages from customers go here, shared with their permission. A screenshot of a happy WhatsApp message works well.</p>
+      </div>
+      <div class="chat" aria-label="Example customer messages">
+        <div class="bub"><p>Ben, the saree is even prettier in person! Wore it to my nephew's wedding. So many compliments.</p><div class="meta"><span class="ex">Example</span><span>7:42 pm</span></div></div>
+        <div class="bub me"><p>So happy to hear this! Please send a photo 😊</p><div class="meta"><span></span><span>7:50 pm</span></div></div>
+        <div class="bub"><p>The video call helped so much. I could see the real colour before paying.</p><div class="meta"><span class="ex">Example</span><span>11:15 am</span></div></div>
+        <div class="bub"><p>Sent a gift to my sister in Calgary. It came in 4 days, wrapped with a card.</p><div class="meta"><span class="ex">Example</span><span>3:02 pm</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pink" id="visit">
+    <div class="wrap">
+      <div class="head"><div><h2>Come and see in person</h2><p class="gu">રૂબરૂ મળો</p></div></div>
+      <div class="visit">
+        <div class="vcard">
+          <h3>At my home, by appointment</h3>
+          <p>Message me to pick a day. I will send you the address.</p>
+          <p><b data-config="hours">Replies 10 am – 8 pm, every day except Tuesday</b></p>
+          <a class="btn btn-wa" data-wa-text="Namaste {owner}! I would like to come and see the sarees. Which days are free?" href="#" target="_blank" rel="noopener">Book a visit</a>
+        </div>
+        <div class="vcard">
+          <p class="ex">Example date</p>
+          <div class="date"><div class="cal"><div class="m">OCT</div><div class="d">31</div></div><div><h3>Diwali exhibition</h3><p>Sat Oct 31 &amp; Sun Nov 1 · 11 am – 6 pm · Community hall, <span data-config="city">Ajax</span></p></div></div>
+          <a class="btn btn-line" data-wa-text="Namaste {owner}! Please remind me about the Diwali exhibition." href="#" target="_blank" rel="noopener">Remind me on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap" style="max-width:860px">
+      <div class="head"><div><h2>Questions people ask me</h2></div></div>
+      <div class="faq">
+        <details><summary>Will the colour look the same as the photo?</summary><p>Phone screens change colours a little. Ask me for a video call in daylight and you will see the real colour before paying.</p></details>
+        <details><summary>How do I pay?</summary><p>By Interac e-Transfer after you confirm on WhatsApp. Cash is fine if you pick up from my home.</p></details>
+        <details><summary>How long does shipping take?</summary><p>Canada Post, usually 2 to 6 business days, with a tracking number.</p></details>
+        <details><summary>Can I exchange a saree?</summary><p>Yes, within 7 days if it is unused with the tags on. Stitched blouses can't be exchanged.</p></details>
+        <details><summary>I don't know which saree to choose. Can you help?</summary><p>Of course. Tell me the occasion, your budget and colours you like. I will send you a few choices.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="nm" data-config="shopName">Sakhi Sarees</p>
+      <p><span data-config="ownerName">Jayshree</span>'s home shop in <span data-config="city">Ajax</span>, Ontario.</p>
+    </div>
+    <div>
+      <p><b>WhatsApp or call:</b> <span data-config="phoneDisplay">+1 (000) 000-0000</span></p>
+      <p data-config="hours">Replies 10 am – 8 pm, every day except Tuesday</p>
+    </div>
+    <p class="credit">Sample site. Photos are free stock photos from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> and show sarees in general, not items for sale. Drawings stand in where no photo fits.</p>
+  </div>
+</footer>
+
+<div class="wa-bar"><a class="btn btn-wa btn-block" data-wa="hello" href="#" target="_blank" rel="noopener">Message me on WhatsApp</a></div>
+
+<script src="shop.js"></script>
+<script>
+const $ = s => document.querySelector(s);
+const state = { type: null, price: null, occasion: null };
+
+function card(p, { showNew = false } = {}) {
+  const el = document.createElement("article"); el.className = "card";
+  const pic = document.createElement("button"); pic.type = "button"; pic.className = "pic";
+  pic.setAttribute("aria-label", "See details of " + p.name);
+  pic.appendChild(productImage(p, { sizes: "(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw", ratio: [4, 5] }));
+  const note = document.createElement("span"); note.className = "chip note";
+  note.textContent = isDrawing(p) ? "Drawing" : isSamplePhoto(p) ? "Sample photo" : "";
+  if (note.textContent) pic.appendChild(note);
+  if (showNew && p.isNew) { const n = document.createElement("span"); n.className = "chip new"; n.textContent = "New"; pic.appendChild(n); }
+  pic.addEventListener("click", () => openDetail(p));
+  el.appendChild(pic);
+  const body = document.createElement("div"); body.className = "body";
+  body.innerHTML = `<h3></h3>${p.gu ? '<p class="gu"></p>' : ""}<p class="meta"></p><p class="price"></p><p class="code"></p>
+    <div class="acts"><a class="btn btn-wa btn-block" target="_blank" rel="noopener">Ask me about this</a><button class="btn btn-line btn-block" type="button">See details</button></div>`;
+  body.querySelector("h3").textContent = p.name;
+  if (p.gu) body.querySelector(".gu").textContent = p.gu;
+  body.querySelector(".meta").textContent = p.fabric;
+  body.querySelector(".price").textContent = money(p.price);
+  body.querySelector(".code").textContent = "Code " + p.code;
+  body.querySelector("a").href = waLink(orderText(p));
+  body.querySelector("button").addEventListener("click", () => openDetail(p));
+  el.appendChild(body);
+  return el;
+}
+
+function renderQuad() {
+  const q = $("#quad");
+  ["S-04", "S-01", "S-13", "S-07"].map(byCode).forEach(p => {
+    const img = productImage(p, { sizes: "(max-width: 860px) 50vw, 25vw", ratio: [4, 5] });
+    img.alt = "Sample photo: " + p.name;
+    img.loading = "eager"; img.fetchPriority = "high";
+    q.appendChild(img);
+  });
+}
+
+function renderNew() {
+  const g = $("#newGrid");
+  PRODUCTS.filter(p => p.isNew).slice(0, 3).forEach(p => g.appendChild(card(p, { showNew: true })));
+}
+
+const BUDGET_PHOTO = { low: "S-11", mid: "S-09", high: "S-03" };
+const BUDGET_TEXT = { low: "Everyday sarees, dupattas and dress material", mid: "Festive silks and gifts", high: "Wedding silks and lehengas" };
+function renderBudget() {
+  const b = $("#budget"); b.innerHTML = "";
+  PRICE_BANDS.forEach(band => {
+    const t = document.createElement("button"); t.type = "button"; t.className = "btile";
+    t.setAttribute("aria-pressed", String(state.price === band.id));
+    t.appendChild(productImage(byCode(BUDGET_PHOTO[band.id]), { sizes: "(max-width: 860px) 100vw, 33vw", ratio: [16, 10] }));
+    const tx = document.createElement("span"); tx.className = "t";
+    tx.innerHTML = "<b></b><span></span>";
+    tx.querySelector("b").textContent = band.en;
+    tx.querySelector("span").textContent = `${BUDGET_TEXT[band.id]} · ${PRODUCTS.filter(band.test).length} pieces`;
+    t.appendChild(tx);
+    t.addEventListener("click", () => { state.price = state.price === band.id ? null : band.id; renderAll(); $("#all").scrollIntoView({ block: "start" }); });
+    b.appendChild(t);
+  });
+}
+
+const TYPE_PHOTO = { silk: "S-02", gujarati: "G-03", lehenga: "L-01", dress: "D-01" };
+function renderTypes() {
+  const box = $("#types"); box.innerHTML = "";
+  TYPES.forEach(ty => {
+    const t = document.createElement("button"); t.type = "button"; t.className = "ttile";
+    t.setAttribute("aria-pressed", String(state.type === ty.id));
+    t.appendChild(productImage(byCode(TYPE_PHOTO[ty.id]), { sizes: "(max-width: 1000px) 50vw, 25vw", ratio: [1, 1] }));
+    const tx = document.createElement("span"); tx.className = "t";
+    tx.innerHTML = "<b></b><span></span>";
+    tx.querySelector("b").textContent = ty.en;
+    tx.querySelector("span").textContent = ty.gu;
+    t.appendChild(tx);
+    t.addEventListener("click", () => { state.type = state.type === ty.id ? null : ty.id; renderAll(); $("#all").scrollIntoView({ block: "start" }); });
+    box.appendChild(t);
+  });
+}
+
+function renderOcc() {
+  const el = $("#occRow"); el.innerHTML = "";
+  [{ id: null, en: "Any occasion" }, ...OCCASIONS].forEach(o => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "pill"; b.textContent = o.en;
+    b.setAttribute("aria-pressed", String(state.occasion === o.id));
+    b.addEventListener("click", () => { state.occasion = o.id; renderAll(); });
+    el.appendChild(b);
+  });
+}
+
+function renderGrid() {
+  const band = PRICE_BANDS.find(b => b.id === state.price);
+  const list = PRODUCTS.filter(p =>
+    (!state.type || p.type === state.type) && (!band || band.test(p)) && (!state.occasion || p.occasions.includes(state.occasion)));
+  const t = TYPES.find(t => t.id === state.type);
+  const parts = [t && t.en, band && band.en].filter(Boolean);
+  $("#shopTitle").textContent = parts.length ? parts.join(" · ") : "All my sarees";
+  $("#count").textContent = `Showing ${list.length} of ${PRODUCTS.length} pieces`;
+  $("#clear").hidden = !state.type && !state.price && !state.occasion;
+  const g = $("#grid"); g.innerHTML = "";
+  if (!list.length) { g.innerHTML = '<p class="empty">Nothing here for this choice yet. Message me and I will look for you.</p>'; return; }
+  list.forEach(p => g.appendChild(card(p)));
+}
+
+function renderAll() { renderBudget(); renderTypes(); renderOcc(); renderGrid(); }
+
+applyConfig();
+setupTextSize($("#textSize"));
+renderQuad(); renderNew(); renderAll();
+$("#clear").addEventListener("click", () => { state.type = state.price = state.occasion = null; renderAll(); });
+</script>
+</body>
+</html>

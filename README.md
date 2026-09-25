@@ -4,18 +4,30 @@ Sample catalog website for a small saree / Gujarati-wear seller.
 Audience: Indian women 40–60+ in Canada, mostly opening the link from WhatsApp on a phone.
 Region: Canada. Prices in CAD, Interac e-Transfer, Canada Post or local pickup.
 
-- Website: https://kmehta10.github.io/saree-shop/
+- Design picker (start here): https://kmehta10.github.io/saree-shop/
+- Original: https://kmehta10.github.io/saree-shop/original.html
+- Design A: https://kmehta10.github.io/saree-shop/design-a.html
+- Design B: https://kmehta10.github.io/saree-shop/design-b.html
 - WhatsApp selling walkthrough: https://kmehta10.github.io/saree-shop/whatsapp-demo.html
+
+Owner: Jayshree. City: Ajax, Ontario.
+
 - Status: first draft, 2026-09-24. Waiting on feedback.
 
 ## Files
 
 | File | What it is |
 |---|---|
-| `page.html` | The one source file. Edit this. |
+| `page.html` | The original design (also the Artifact preview source). |
 | `whatsapp-demo.html` | Click-through demo of a sale inside WhatsApp Business + setup checklist. Drawing code is copied from `page.html`. |
-| `build.sh` | Wraps both pages into full web pages in `docs/`. |
-| `docs/index.html` | Built file. This is what GitHub Pages / Vercel serves. Don't edit by hand. |
+| `design-a.html` | Design A: photo-led boutique look (maroon and gold). Full page, uses `shop.js`. |
+| `design-b.html` | Design B: owner-first home shop look (pink, peacock, big buttons). Full page, uses `shop.js`. |
+| `shop.js` | Shared data for both designs: `CONFIG`, `PRODUCTS`, photos, WhatsApp links, pop-up, drawings. |
+| `chooser.html` | The design picker. Becomes `docs/index.html`. |
+| `switcher.js` | The dark "Switch design" bar. `build.sh` adds it to every page except the picker. Add `?preview` to a URL to hide it. |
+| `build.sh` | Builds everything in `docs/`. Run after any edit. |
+| `previews.sh` | Retakes the picker's preview pictures with headless Chrome (runs `build.sh` first). |
+| `docs/` | Built files. This is what GitHub Pages serves. Don't edit by hand. |
 
 ## How to change things
 
@@ -26,6 +38,14 @@ Everything to edit is at the top of the `<script>` in `page.html`:
   (put photos in `docs/photos/`).
 
 Then run `./build.sh`.
+
+## Photos, reviews and dates in the designs
+
+- Photos are free Unsplash photos, hotlinked from images.unsplash.com (Unsplash License, commercial use OK).
+  They show sarees in general, not her stock. Product names describe what each photo shows.
+  Replace with her own photos: set `image: "photos/x.jpg"` on a product and drop the file in `docs/photos/`.
+- Reviews and the Diwali exhibition date are marked "Example". Swap in real customer messages (with permission).
+- Services (fall & pico, blouse stitching from $45, petticoat, home visits) are ideas to confirm with her.
 
 ## Design choices (why it looks like this)
 
