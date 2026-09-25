@@ -4,7 +4,8 @@ Sample catalog website for a small saree / Gujarati-wear seller.
 Audience: Indian women 40–60+ in Canada, mostly opening the link from WhatsApp on a phone.
 Region: Canada. Prices in CAD, Interac e-Transfer, Canada Post or local pickup.
 
-- Design picker (start here): https://kmehta10.github.io/saree-shop/
+- Design picker (start here): https://kmehta10.github.io/saree-shop/  
+  **This is the one link to share. It never changes.** New designs get added to the picker, not sent as new links.
 - Original: https://kmehta10.github.io/saree-shop/original.html
 - Design A: https://kmehta10.github.io/saree-shop/design-a.html
 - Design B: https://kmehta10.github.io/saree-shop/design-b.html
@@ -26,7 +27,8 @@ Owner: Jayshree. City: Ajax, Ontario.
 | `chooser.html` | The design picker. Becomes `docs/index.html`. |
 | `switcher.js` | The dark "Switch design" bar. `build.sh` adds it to every page except the picker. Add `?preview` to a URL to hide it. |
 | `build.sh` | Builds everything in `docs/`. Run after any edit. |
-| `previews.sh` | Retakes the picker's preview pictures with headless Chrome (runs `build.sh` first). |
+| `previews.sh` | Retakes the picker's preview pictures into `previews/` with headless Chrome. Run `build.sh` after. |
+| `previews/` | Preview pictures for the picker (copied to `docs/previews/` by `build.sh`). |
 | `docs/` | Built files. This is what GitHub Pages serves. Don't edit by hand. |
 
 ## How to change things

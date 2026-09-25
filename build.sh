@@ -5,7 +5,7 @@
 #   docs/whatsapp-demo.html  whatsapp-demo.html wrapped the same way
 #   docs/design-a.html, docs/design-b.html  copied as is
 # Every page except the picker gets the design switcher bar (switcher.js) before </body>.
-# Preview pictures for the picker come from ./previews.sh.
+# Preview pictures for the picker live in previews/ (made by ./previews.sh) and are copied to docs/previews/.
 set -e
 cd "$(dirname "$0")"
 mkdir -p docs
@@ -32,3 +32,4 @@ wrap whatsapp-demo.html whatsapp-demo.html
 copy design-a.html
 copy design-b.html
 cp shop.js switcher.js docs/ && echo "Copied shop.js, switcher.js"
+mkdir -p docs/previews && cp previews/*.jpg docs/previews/ && echo "Copied previews/"
